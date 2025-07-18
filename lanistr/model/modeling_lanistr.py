@@ -17,8 +17,8 @@ import dataclasses
 import math
 from typing import Mapping, Optional
 
-from model.losses import MaskedMSELoss
-from model.losses import NegativeCosineSimilarityLoss
+from lanistr.model.losses import MaskedMSELoss
+from lanistr.model.losses import NegativeCosineSimilarityLoss
 import omegaconf
 import torch
 from torch import nn

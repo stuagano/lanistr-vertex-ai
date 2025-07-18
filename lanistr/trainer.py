@@ -22,15 +22,15 @@ import omegaconf
 import torch
 import tqdm
 import transformers
-from utils.common_utils import get_metrics
-from utils.common_utils import load_checkpoint_with_module
-from utils.common_utils import MetricsLogger
-from utils.common_utils import print_only_by_main_process
-from utils.common_utils import print_performance_by_main_process
-from utils.common_utils import print_pretrain_performance_by_main_process
-from utils.common_utils import save_checkpoint
-from utils.common_utils import save_checkpoint_optimizer
-from utils.parallelism_utils import is_main_process
+from lanistr.utils.common_utils import get_metrics
+from lanistr.utils.common_utils import load_checkpoint_with_module
+from lanistr.utils.common_utils import MetricsLogger
+from lanistr.utils.common_utils import print_only_by_main_process
+from lanistr.utils.common_utils import print_performance_by_main_process
+from lanistr.utils.common_utils import print_pretrain_performance_by_main_process
+from lanistr.utils.common_utils import save_checkpoint
+from lanistr.utils.common_utils import save_checkpoint_optimizer
+from lanistr.utils.parallelism_utils import is_main_process
 
 
 logger = logging.getLogger(__name__)

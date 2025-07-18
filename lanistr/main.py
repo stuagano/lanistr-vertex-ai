@@ -23,21 +23,21 @@ import random
 import time
 import warnings
 
-from dataset.amazon.load_data import load_amazon
-from dataset.mimic_iv.load_data import load_mimic
+from lanistr.dataset.amazon.load_data import load_amazon
+from lanistr.dataset.mimic_iv.load_data import load_mimic
 import numpy as np
 import omegaconf
 import torch
-from trainer import Trainer
+from lanistr.trainer import Trainer
 import transformers
-from utils.common_utils import how_long
-from utils.common_utils import print_config
-from utils.common_utils import print_only_by_main_process
-from utils.common_utils import set_global_logging_level
-from utils.data_utils import generate_loaders
-from utils.model_utils import build_model
-from utils.parallelism_utils import is_main_process
-from utils.parallelism_utils import setup_model
+from lanistr.utils.common_utils import how_long
+from lanistr.utils.common_utils import print_config
+from lanistr.utils.common_utils import print_only_by_main_process
+from lanistr.utils.common_utils import set_global_logging_level
+from lanistr.utils.data_utils import generate_loaders
+from lanistr.utils.model_utils import build_model
+from lanistr.utils.parallelism_utils import is_main_process
+from lanistr.utils.parallelism_utils import setup_model
 
 warnings.filterwarnings("ignore")
 

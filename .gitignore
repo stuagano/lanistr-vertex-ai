@@ -7,3 +7,26 @@ data/
 
 # Editor
 .vscode/
+
+# Vertex AI specific
+.env
+results/
+*.log
+checkpoints/
+output_dir/
+
+# Google Cloud credentials
+*.json
+!discretizer_config.json
+
+# Docker
+.dockerignore
+
+# IDE
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db

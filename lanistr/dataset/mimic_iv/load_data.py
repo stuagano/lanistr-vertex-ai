@@ -17,13 +17,13 @@ import math
 import os
 from typing import Any, Dict
 
-from dataset.mimic_iv.mimic_utils import Discretizer
-from dataset.mimic_iv.mimic_utils import get_normalizer
-from dataset.mimic_iv.mimic_utils import load_labeled_multimodal_data
-from dataset.mimic_iv.mimic_utils import load_pretraining_multimodal_data
-from dataset.mimic_iv.mimic_utils import load_unimodal_data
-from dataset.mimic_iv.mimic_utils import padding_mask
-from third_party.mvts_transformer.timeseries_encoder import noise_mask
+from lanistr.dataset.mimic_iv.mimic_utils import Discretizer
+from lanistr.dataset.mimic_iv.mimic_utils import get_normalizer
+from lanistr.dataset.mimic_iv.mimic_utils import load_labeled_multimodal_data
+from lanistr.dataset.mimic_iv.mimic_utils import load_pretraining_multimodal_data
+from lanistr.dataset.mimic_iv.mimic_utils import load_unimodal_data
+from lanistr.dataset.mimic_iv.mimic_utils import padding_mask
+from lanistr.third_party.mvts_transformer.timeseries_encoder import noise_mask
 import numpy as np
 import omegaconf
 import pandas as pd
@@ -32,8 +32,8 @@ import torch
 from torch.utils import data
 import torchvision
 import transformers
-from utils.data_utils import get_image_transforms
-from utils.data_utils import MaskGenerator
+from lanistr.utils.data_utils import get_image_transforms
+from lanistr.utils.data_utils import MaskGenerator
 
 
 class MimicImageTextTabTimeseries(data.Dataset):
@@ -135,7 +135,7 @@ class MimicImageTextTabTimeseries(data.Dataset):
     self.tab = tab
 
   def __getitem__(self, index):
-    """Get item from dataset.
+    """Get item from lanistr.dataset.
 
     Args:
         index: index of the item

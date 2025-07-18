@@ -1,0 +1,305 @@
+# Security Configuration for LANISTR Enterprise Deployment
+# This file defines security policies and settings for production deployment
+
+security:
+  # =============================================================================
+  # AUTHENTICATION AND AUTHORIZATION
+  # =============================================================================
+  authentication:
+    # Google Cloud IAM settings
+    gcp_iam:
+      required_roles:
+        - "roles/aiplatform.user"
+        - "roles/storage.objectViewer"
+        - "roles/logging.logWriter"
+        - "roles/monitoring.metricWriter"
+      service_account_key_rotation_days: 90
+      enforce_least_privilege: true
+    
+    # API authentication
+    api_auth:
+      enabled: true
+      method: "service_account"  # or "oauth2", "api_key"
+      require_ssl: true
+      session_timeout_minutes: 60
+
+  # =============================================================================
+  # ENCRYPTION AND DATA PROTECTION
+  # =============================================================================
+  encryption:
+    # Data encryption at rest
+    at_rest:
+      enabled: true
+      algorithm: "AES-256"
+      key_rotation_days: 365
+    
+    # Data encryption in transit
+    in_transit:
+      enabled: true
+      tls_version: "1.3"
+      cipher_suites:
+        - "TLS_AES_256_GCM_SHA384"
+        - "TLS_CHACHA20_POLY1305_SHA256"
+    
+    # Model encryption
+    model_encryption:
+      enabled: true
+      algorithm: "AES-256"
+      key_management: "gcp_kms"
+
+  # =============================================================================
+  # NETWORK SECURITY
+  # =============================================================================
+  network:
+    # Firewall rules
+    firewall:
+      allowed_ips: []  # List of allowed IP ranges
+      deny_all_except_allowed: true
+      log_blocked_connections: true
+    
+    # VPC settings
+    vpc:
+      enabled: true
+      private_subnet_only: true
+      enable_flow_logs: true
+    
+    # Load balancer security
+    load_balancer:
+      ssl_termination: true
+      waf_enabled: true
+      ddos_protection: true
+
+  # =============================================================================
+  # DATA SECURITY AND PRIVACY
+  # =============================================================================
+  data_protection:
+    # Data classification
+    classification:
+      sensitivity_level: "confidential"
+      data_types:
+        - "PII"  # Personally Identifiable Information
+        - "PHI"  # Protected Health Information
+        - "model_weights"
+        - "training_data"
+    
+    # Data retention
+    retention:
+      training_data_days: 90
+      model_artifacts_days: 365
+      logs_days: 30
+      backups_days: 730
+    
+    # Data access controls
+    access_controls:
+      principle_of_least_privilege: true
+      role_based_access: true
+      audit_all_access: true
+      data_masking: true
+
+  # =============================================================================
+  # SECURITY MONITORING AND LOGGING
+  # =============================================================================
+  monitoring:
+    # Security event logging
+    logging:
+      security_events: true
+      authentication_events: true
+      data_access_events: true
+      model_access_events: true
+      retention_days: 90
+    
+    # Alerting
+    alerts:
+      failed_login_attempts: 5
+      suspicious_data_access: true
+      model_tampering_detection: true
+      unusual_network_activity: true
+    
+    # SIEM integration
+    siem:
+      enabled: true
+      provider: "google_cloud_logging"
+      real_time_analysis: true
+
+  # =============================================================================
+  # VULNERABILITY MANAGEMENT
+  # =============================================================================
+  vulnerability_management:
+    # Automated scanning
+    scanning:
+      frequency: "weekly"
+      tools:
+        - "safety"
+        - "bandit"
+        - "semgrep"
+        - "trufflehog"
+      auto_remediation: false
+      manual_review_required: true
+    
+    # Patch management
+    patching:
+      critical_patches_hours: 24
+      security_patches_days: 7
+      regular_updates_days: 30
+      testing_required: true
+
+  # =============================================================================
+  # COMPLIANCE AND AUDIT
+  # =============================================================================
+  compliance:
+    # Regulatory compliance
+    regulations:
+      - "GDPR"
+      - "HIPAA"
+      - "SOX"
+      - "ISO27001"
+    
+    # Audit requirements
+    audit:
+      enabled: true
+      frequency: "quarterly"
+      external_auditor: true
+      retention_years: 7
+    
+    # Data governance
+    governance:
+      data_catalog: true
+      lineage_tracking: true
+      consent_management: true
+
+  # =============================================================================
+  # INCIDENT RESPONSE
+  # =============================================================================
+  incident_response:
+    # Response team
+    team:
+      security_lead: "security@company.com"
+      incident_manager: "incident@company.com"
+      legal_contact: "legal@company.com"
+    
+    # Response procedures
+    procedures:
+      detection_timeout_minutes: 15
+      response_timeout_minutes: 60
+      notification_channels:
+        - "email"
+        - "slack"
+        - "pagerduty"
+    
+    # Recovery procedures
+    recovery:
+      backup_restoration_timeout_hours: 4
+      service_restoration_timeout_hours: 2
+      post_incident_review_days: 7
+
+  # =============================================================================
+  # CONTAINER SECURITY
+  # =============================================================================
+  container_security:
+    # Image security
+    image:
+      base_image_scanning: true
+      vulnerability_scanning: true
+      signed_images_only: true
+      registry_scanning: true
+    
+    # Runtime security
+    runtime:
+      read_only_root_filesystem: true
+      no_privileged_containers: true
+      resource_limits: true
+      security_context: true
+
+  # =============================================================================
+  # API SECURITY
+  # =============================================================================
+  api_security:
+    # Rate limiting
+    rate_limiting:
+      enabled: true
+      requests_per_minute: 1000
+      burst_limit: 100
+    
+    # Input validation
+    input_validation:
+      enabled: true
+      sanitize_inputs: true
+      validate_schemas: true
+      max_payload_size_mb: 10
+    
+    # API versioning
+    versioning:
+      enabled: true
+      deprecated_versions_grace_period_days: 90
+
+  # =============================================================================
+  # MODEL SECURITY
+  # =============================================================================
+  model_security:
+    # Model validation
+    validation:
+      integrity_checks: true
+      signature_verification: true
+      tampering_detection: true
+    
+    # Model access
+    access:
+      authentication_required: true
+      authorization_required: true
+      audit_logging: true
+    
+    # Model poisoning protection
+    poisoning_protection:
+      data_validation: true
+      model_monitoring: true
+      drift_detection: true
+
+# =============================================================================
+# DEPLOYMENT ENVIRONMENT SPECIFIC SETTINGS
+# =============================================================================
+environments:
+  development:
+    security_level: "standard"
+    monitoring_level: "basic"
+    compliance_requirements: []
+  
+  staging:
+    security_level: "enhanced"
+    monitoring_level: "standard"
+    compliance_requirements: ["GDPR"]
+  
+  production:
+    security_level: "maximum"
+    monitoring_level: "comprehensive"
+    compliance_requirements: ["GDPR", "HIPAA", "SOX", "ISO27001"]
+
+# =============================================================================
+# SECURITY METRICS AND KPIs
+# =============================================================================
+metrics:
+  # Security metrics to track
+  key_metrics:
+    - "mean_time_to_detect"
+    - "mean_time_to_resolve"
+    - "vulnerability_scan_coverage"
+    - "patch_compliance_rate"
+    - "security_incident_count"
+    - "data_breach_count"
+    - "compliance_audit_score"
+  
+  # Reporting frequency
+  reporting:
+    daily: ["security_incident_count"]
+    weekly: ["vulnerability_scan_coverage", "patch_compliance_rate"]
+    monthly: ["mean_time_to_detect", "mean_time_to_resolve"]
+    quarterly: ["compliance_audit_score"]
+
+# =============================================================================
+# NOTES AND DOCUMENTATION
+# =============================================================================
+notes:
+  - "This configuration should be reviewed and updated quarterly"
+  - "All security settings should be tested in staging before production"
+  - "Compliance requirements may vary by region and industry"
+  - "Security metrics should be reviewed by security team monthly"
+  - "Incident response procedures should be tested annually" 

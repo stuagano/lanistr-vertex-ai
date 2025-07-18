@@ -1,0 +1,77 @@
+dataset_name: mimic-iv
+dist_backend: nccl
+do_test: false
+do_train: true
+eval_batch_size: 8
+experiment_name: mimic-iv_pretrain
+image: true
+image_crop: 224
+image_data_dir: ./data/mimic-iv/images
+image_embedding_dim: 768
+image_encoder_name: google/vit-base-patch16-224
+image_encoder_pretrained: true
+image_encoder_trainable: true
+image_masking_ratio: 0.5
+image_size: 224
+impute_strategy: zero
+lambda_mim: 1.0
+lambda_mlm: 1.0
+lambda_mmm: 1.0
+lambda_mtm: 0.1
+mask_patch_size: 16
+max_token_length: 512
+mlm_probability: 0.15
+mm_encoder_trainable: true
+mm_hidden_dim: 1024
+mm_output_dim: 1024
+model_patch_size: 16
+multiprocessing_distributed: false
+ngpus_per_node: 0
+optimizer:
+  clip_value: 5.0
+  learning_rate: 0.0001
+  weight_decay: 0.02
+output_dir: ./output_dir/mimic-iv_pretrain
+predictor_hidden_dim: 256
+predictor_out_dim: 1024
+preprocessed_data_dir: ./data/mimic-iv/
+pretrain_initialize_from_epoch: 0
+pretrain_resume: false
+projection_dim: 512
+projection_type: SimSiam
+root_data_dir: ./data/mimic-iv
+scheduler:
+  num_epochs: 5
+  warmup_epochs: 1
+seed: 2022
+start_time: zero
+sub_samples: 0
+tab: false
+task: pretrain
+task_data_dir: ./data/mimic-iv/task
+test_batch_size: 8
+test_ratio: 0.2
+text: true
+text_embedding_dim: 768
+text_encoder_name: bert-base-uncased
+text_encoder_pretrained: true
+text_encoder_trainable: true
+time: true
+timeseries_activation: gelu
+timeseries_dim_feedforward: 256
+timeseries_dropout: 0.1
+timeseries_embedding_dim: 76
+timeseries_encoder_trainable: true
+timeseries_input_dim: 76
+timeseries_layers: 3
+timeseries_mask_distribution: geometric
+timeseries_mask_mode: separate
+timeseries_masking_ratio: 0.15
+timeseries_max_seq_len: 48
+timeseries_mean_mask_length: 3
+timeseries_n_heads: 4
+timestep: 1.0
+train_batch_size: 8
+unimodal_data_dir: ./data/mimic-iv/unimodal
+workers: 4
+world_size: 1

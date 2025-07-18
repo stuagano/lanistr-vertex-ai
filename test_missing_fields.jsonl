@@ -1,0 +1,3 @@
+{"Review": "Great product!", "reviewerID": "A1234567", "verified": true, "asin": "B12345678", "year": 2023, "vote": 10, "unixReviewTime": 1672531200}
+{"Review": "Good quality", "ImageFileName": "images/product2.jpg", "reviewerID": "A2345678", "verified": false, "asin": "B23456789", "year": 2023, "vote": 5, "unixReviewTime": 1672531200}
+{"ImageFileName": "images/product3.jpg", "reviewerID": "A3456789", "verified": true, "asin": "B34567890", "year": 2023, "vote": 15, "unixReviewTime": 1672531200} 

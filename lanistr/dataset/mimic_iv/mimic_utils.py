@@ -22,8 +22,8 @@ import numpy as np
 import omegaconf
 import pandas as pd
 import torch
-from utils.common_utils import print_df_stats
-from utils.common_utils import print_only_by_main_process
+from lanistr.utils.common_utils import print_df_stats
+from lanistr.utils.common_utils import print_only_by_main_process
 
 
 # From https://github.com/nyuad-cai/MedFuse/blob/main/ehr_utils/preprocessing.py

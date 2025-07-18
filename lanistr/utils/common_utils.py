@@ -25,7 +25,7 @@ import omegaconf
 import pytz
 import torch
 import torchmetrics
-from utils.parallelism_utils import is_main_process
+from lanistr.utils.parallelism_utils import is_main_process
 
 
 logger = logging.getLogger(__name__)
