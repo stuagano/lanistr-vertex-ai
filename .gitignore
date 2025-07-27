@@ -1,32 +1,109 @@
-# Byte-compiled / optimized / DLL files
+# Python
 __pycache__/
 *.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
 
-# data folder contains downloadable public datasets
-data/
+# Virtual environments
+venv/
+env/
+ENV/
+lanistr_env/
+.venv/
 
-# Editor
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb_checkpoints/
+
+# PyCharm
+.idea/
+
+# VS Code
 .vscode/
 
-# Vertex AI specific
-.env
-results/
-*.log
-checkpoints/
-output_dir/
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
 
-# Google Cloud credentials
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+*~
+
+# Logs
+*.log
+logs/
+
+# Coverage reports
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Environment variables
+.env
+.env.local
+.env.production
+
+# Google Cloud
 *.json
-!discretizer_config.json
+!vertex_ai_configs/*.yaml
+!configs/*.yaml
+
+# Data files (exclude large datasets)
+data/
+*.csv
+*.jsonl
+*.parquet
+*.h5
+*.hdf5
+*.pkl
+*.pickle
+
+# Model files
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.temp
+
+# History files (from VS Code extension)
+.history/
+
+# Test reports
+test_reports/
+
+# Local configuration
+config.local.yaml
+settings.local.yaml
 
 # Docker
 .dockerignore
 
-# IDE
-.idea/
-*.swp
-*.swo
-
-# OS
-.DS_Store
-Thumbs.db
+# Cloud Build
+cloudbuild.yaml.bak

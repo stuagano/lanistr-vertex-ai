@@ -5,11 +5,11 @@
 # CORE MACHINE LEARNING FRAMEWORKS
 # =============================================================================
 
-# PyTorch ecosystem with CUDA 11.3 support
-torch==1.11.0+cu113
-torchvision==0.12.0+cu113
-torchaudio==0.11.0
-torchmetrics==0.9.3
+# PyTorch ecosystem with modern CUDA support (compatible with Python 3.13)
+torch>=2.0.0,<3.0.0
+torchvision>=0.15.0,<1.0.0
+torchaudio>=2.0.0,<3.0.0
+torchmetrics>=0.9.3,<1.0.0
 
 # Transformers for NLP models
 transformers==4.26.0
@@ -168,7 +168,7 @@ psycopg2-binary>=2.9.0,<3.0.0
 # =============================================================================
 
 # Ensure compatible Python version
-# Requires Python >= 3.8, < 3.11 for torch 1.11.0 compatibility
+# Requires Python >= 3.8 for torch 2.0+ compatibility
 
 # =============================================================================
 # SECURITY NOTES

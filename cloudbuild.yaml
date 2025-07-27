@@ -1,0 +1,28 @@
+# Cloud Build configuration for LANISTR container
+# This builds the container directly on Google Cloud and pushes to Container Registry
+
+steps:
+  # Step 1: Build the Docker image with minimal requirements
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [
+      'build',
+      '--build-arg', 'BUILDKIT_INLINE_CACHE=1',
+      '--cache-from', 'gcr.io/$PROJECT_ID/lanistr:latest',
+      '-t', 'gcr.io/$PROJECT_ID/lanistr:latest',
+      '.'
+    ]
+    dir: '.'
+    timeout: '1200s'  # 20 minutes for build
+
+# Store images in Container Registry
+images:
+  - 'gcr.io/$PROJECT_ID/lanistr:latest'
+
+# Build options
+options:
+  machineType: 'E2_HIGHCPU_8'  # Use high-CPU machine for faster builds
+  diskSizeGb: '100'  # Larger disk for PyTorch dependencies
+  logStreamingOption: 'STREAM_ON'
+
+# Timeout for the entire build
+timeout: '3600s'  # 1 hour total timeout 

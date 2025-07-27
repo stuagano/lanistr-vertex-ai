@@ -17,13 +17,13 @@ import setuptools
 
 base_requires = [
     'omegaconf==2.3.0',
-    'transformers==4.26.0',
-    'torch==1.11.0+cu113',
-    'torchmetrics==0.9.3',
-    'torchvision==0.12.0+cu113',
-    'pytz==2021.3',
-    'pandas==1.3.5',
-    'scikit-learn==1.3.2',
+    'transformers>=4.26.0,<5.0.0',
+    'torch>=2.0.0,<3.0.0',
+    'torchmetrics>=0.9.3,<1.0.0',
+    'torchvision>=0.15.0,<1.0.0',
+    'pytz>=2021.3,<2024.0',
+    'pandas>=1.5.0,<2.0.0',
+    'scikit-learn>=1.3.2,<2.0.0',
 ]
 
 setuptools.setup(

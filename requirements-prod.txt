@@ -5,11 +5,11 @@
 # CORE MACHINE LEARNING FRAMEWORKS
 # =============================================================================
 
-# PyTorch ecosystem with CUDA 11.3 support
-torch==1.11.0+cu113
-torchvision==0.12.0+cu113
-torchaudio==0.11.0
-torchmetrics==0.9.3
+# PyTorch ecosystem with modern CUDA support (compatible with Python 3.13)
+torch>=2.0.0,<3.0.0
+torchvision>=0.15.0,<1.0.0
+torchaudio>=2.0.0,<3.0.0
+torchmetrics>=0.9.3,<1.0.0
 
 # Transformers for NLP models
 transformers==4.26.0
@@ -80,8 +80,7 @@ certifi>=2021.0.0,<2024.0.0
 # PERFORMANCE AND OPTIMIZATION
 # =============================================================================
 
-# Distributed training utilities
-torch-distributed>=1.11.0
+# Distributed training utilities (torch.distributed is included in PyTorch)
 horovod>=0.23.0,<1.0.0
 
 # =============================================================================

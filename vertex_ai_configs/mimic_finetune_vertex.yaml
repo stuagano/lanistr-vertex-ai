@@ -43,16 +43,16 @@ model_patch_size: 16
 image_masking_ratio: 0.5
 
 # GCS paths for Vertex AI
-root_data_dir: gs://your-bucket/lanistr-data/MIMIC-IV-V2.2/physionet.org/files
-image_data_dir: gs://your-bucket/lanistr-data/MIMIC-IV-V2.2/physionet.org/files/mimic-cxr-jpg/2.0.0
-task_data_dir: gs://your-bucket/lanistr-data/MIMIC-IV-V2.2/in-hospital-mortality
-unimodal_data_dir: gs://your-bucket/lanistr-data/MIMIC-IV-V2.2/in-hospital-mortality/unimodal_data
-preprocessed_data_dir: gs://your-bucket/lanistr-data/MIMIC-IV-V2.2/
-normalizer_file: gs://your-bucket/lanistr-data/MIMIC-IV-V2.2/normalizer.csv
-discretizer_config_path: gs://your-bucket/lanistr-data/MIMIC-IV-V2.2/discretizer_config.json
+root_data_dir: gs://lanistr-mgm-digitalconcierge-data/lanistr-data/mimic-iv/
+image_data_dir: gs://lanistr-mgm-digitalconcierge-data/lanistr-data/mimic-iv/
+task_data_dir: gs://lanistr-mgm-digitalconcierge-data/lanistr-data/mimic-iv/
+unimodal_data_dir: gs://lanistr-mgm-digitalconcierge-data/lanistr-data/mimic-iv/
+preprocessed_data_dir: gs://lanistr-mgm-digitalconcierge-data/lanistr-data/mimic-iv/
+normalizer_file: gs://lanistr-mgm-digitalconcierge-data/lanistr-data/mimic-iv/normalizer.csv
+discretizer_config_path: gs://lanistr-mgm-digitalconcierge-data/lanistr-data/mimic-iv/discretizer_config.json
 
 # GCS output directory
-output_dir: gs://your-bucket/lanistr-output/mimic_finetune
+output_dir: gs://lanistr-mgm-digitalconcierge-data/lanistr-output/mimic_finetune
 experiment_name: mimic_finetune
 
 test_ratio: 0.2

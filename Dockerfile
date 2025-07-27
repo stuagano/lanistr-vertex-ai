@@ -1,5 +1,5 @@
-# Use NVIDIA CUDA base image with PyTorch
-FROM nvidia/cuda:11.3-cudnn8-devel-ubuntu20.04
+# Use Ubuntu base image (compatible with Cloud Build)
+FROM ubuntu:20.04
 
 # Set environment variables
 ENV DEBIAN_FRONTEND=noninteractive
@@ -31,15 +31,19 @@ COPY requirements_vertex_ai.txt .
 COPY requirements-prod.txt .
 COPY requirements-dev.txt .
 
-# Install PyTorch with CUDA 11.3
+# Install minimal requirements for cloud deployment
 RUN pip3 install --no-cache-dir \
-    torch==1.11.0+cu113 \
-    torchvision==0.12.0+cu113 \
-    torchaudio==0.11.0 \
-    --extra-index-url https://download.pytorch.org/whl/cu113
-
-# Install production requirements
-RUN pip3 install --no-cache-dir -r requirements-prod.txt
+    torch>=2.0.0,<3.0.0 \
+    torchvision>=0.15.0,<1.0.0 \
+    torchaudio>=2.0.0,<3.0.0 \
+    transformers==4.26.0 \
+    omegaconf==2.3.0 \
+    google-cloud-storage>=2.0.0,<3.0.0 \
+    google-cloud-aiplatform>=1.25.0,<2.0.0 \
+    google-auth>=2.0.0,<3.0.0 \
+    tqdm>=4.62.0,<5.0.0 \
+    numpy>=1.21.0,<2.0.0 \
+    pandas>=1.3.5,<2.0.0
 
 # Copy source code
 COPY lanistr/ ./lanistr/

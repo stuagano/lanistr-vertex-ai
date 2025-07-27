@@ -1,0 +1,27 @@
+# Minimal Cloud Build configuration for LANISTR
+# This builds a lightweight container with only essential packages
+
+steps:
+  # Build the minimal Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [
+      'build',
+      '-f', 'Dockerfile.minimal',
+      '-t', 'gcr.io/$PROJECT_ID/lanistr:latest',
+      '.'
+    ]
+    dir: '.'
+    timeout: '600s'  # 10 minutes for minimal build
+
+# Store images in Container Registry
+images:
+  - 'gcr.io/$PROJECT_ID/lanistr:latest'
+
+# Build options
+options:
+  machineType: 'E2_HIGHCPU_8'  # Use high-CPU machine for faster builds
+  diskSizeGb: '50'  # Smaller disk for minimal build
+  logStreamingOption: 'STREAM_ON'
+
+# Timeout for the entire build
+timeout: '900s'  # 15 minutes total timeout 
