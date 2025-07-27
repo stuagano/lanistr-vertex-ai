@@ -1,250 +1,192 @@
-# LANISTR: Multimodal Learning from Structured and Unstructured Data
+# 🚀 LANISTR - Multimodal Learning Framework
 
-This repository contains the implementation of the paper:
+A comprehensive multimodal learning framework for training and deploying AI models on Google Cloud Platform with Vertex AI.
 
-> **LANISTR: Multimodal Learning from Structured and Unstructured Data**
-> [[Paper]](https://arxiv.org/pdf/2305.16556.pdf)  <br>
-> [Sayna Ebrahimi](https://saynaebrahimi.github.io/), [Sercan Arik](https://sites.google.com/corp/view/sercanarik/home), [Yihe Dong](https://yihedong.me/), [Tomas Pfister](https://tomas.pfister.fi/).
-> <br>
+## 🌟 Features
 
-Multimodal large-scale pretraining has shown impressive performance for
-unstructured data such as language and image. However, a prevalent real-world
-scenario involves structured data types, tabular and time-series, along with
-unstructured data. Such scenarios have been understudied. To bridge this gap, we
-propose LANISTR, an attention-based framework to learn from LANguage, Image, and
-STRuctured data. The core of LANISTR's methodology is rooted in
-\textit{masking-based} training applied across both unimodal and multimodal
-levels. In particular, we introduce a new similarity-based multimodal masking
-loss that enables it to learn cross-modal relations from large-scale multimodal
-data with missing modalities. On two real-world datasets, MIMIC-IV (from
-healthcare) and Amazon Product Review (from retail), LANISTR demonstrates
-remarkable improvements, 6.6\% (in AUROC) and 14\% (in accuracy) when fine-tuned
-with 0.1\% and 0.01\% of labeled data, respectively, compared to the
-state-of-the-art alternatives. Notably, these improvements are observed even
-with very high ratio of samples (35.7\% and 99.8\% respectively) not containing
-all modalities, underlining the robustness of LANISTR to practical missing
-modality challenge.
+- **Multimodal Learning**: Support for text, image, and tabular data
+- **Cloud-Native**: Built for Google Cloud Platform and Vertex AI
+- **Production Ready**: Complete CI/CD pipeline with Cloud Build
+- **Easy Setup**: Automated virtual environment and dependency management
+- **Comprehensive Testing**: Full test suite with pytest
+- **Interactive Tutorials**: Jupyter notebooks for learning and experimentation
 
---------------------------------------------------------------------------------
+## 📋 Quick Start
 
-<div  align="center">
-<img src="lanistr/Figures/lanistr.gif" width="95%">
-</div>
-
-
-## Setup
-
-### Install LANISTR
+### 1. Setup Virtual Environment
 
 ```bash
-conda create -n lanistr python=3.8 -y
-conda activate lanistr
-pip install -e .
+# Run the automated setup script
+./setup_venv.sh
+
+# Or manually create and activate virtual environment
+python -m venv lanistr_env
+source lanistr_env/bin/activate  # On Windows: lanistr_env\Scripts\activate
+pip install -r requirements-cloud.txt
 ```
 
-### Data Preparation
-
-#### MIMIC-IV-v2.2
-
--   For [MIMIC-IV v2.2 dataset](https://mimic.mit.edu/), please follow the
-    instructions to obtain access. Note that, prior to requesting access to
-    MIMIC, you must become a credentialed user on PhysioNet where the MIMIC data
-    is hosted
-    ([see instructions](https://physionet.org/settings/credentialing/)).
--   Once you obtain access, log into your PhysioNet account and visit
-    [MIMIC-IV project page](https://physionet.org/content/mimiciv/),
-    [MIMIC-CXR project page](https://physionet.org/content/mimic-cxr/) and
-    [MIMIC-ED project page](https://physionet.org/content/mimic-iv-ed/). Find
-    the “Files” section in the project description and download the data after
-    signing the user agreement. Place all the data under `physionet.org`
-    directory as shown below.
--   Next, follow
-    [these instructions](https://github.com/nyuad-cai/MedFuse/blob/main/mimic4extract/README.md)
-    to extract and preprocess the data into `./lanistr/data/MIMIC-IV-V2.2/` directory.
-    Note that two sub-directories will be generated in `./lanistr/data/MIMIC-IV-V2.2/`
-    named as `root` and `in-hospital-mortality`. This path
-    (`./lanistr/data/MIMIC-IV-V2.2/`) is called as `preprocessed_data_dir` in the config
-    files in our code.
--   Download
-    [discretizer_config.json](https://github.com/nyuad-cai/MedFuse/blob/main/ehr_utils/resources/discretizer_config.json)
-    and place it in `./lanistr/data/MIMIC-IV-V2.2/discretizer_config.json`.
-
-#### Amazon Product Review 2018
-
--   For
-    [Amazon Product Review Dataset](https://cseweb.ucsd.edu/~jmcauley/datasets/amazon_v2/),
-    please use the provided download script to download the data from the
-    original servers upon agreeing to their user agreements. Make sure you are in `./lanistr/` subdirectory.
+### 2. Cloud Deployment (Recommended)
 
 ```bash
-bash scripts/download_amazon.sh
+# Build and push container to Google Cloud
+./build_minimal.sh
+
+# Or use Cloud Build
+./trigger_cloud_build.sh
 ```
 
-Once downloaded, the data directory in lanistr code should look like as below for
-`./lanistr/data/APR2018`
+### 3. Run Training Jobs
 
 ```bash
+# Open the cloud tutorial notebook
+jupyter notebook lanistr_cloud_tutorial.ipynb
+```
+
+## 🏗️ Project Structure
+
+```
 lanistr/
-  configs/
-  datasets/
-  model/
-  Figures/
-  scripts/
-  utils/
-  ......
-  data/
-    |-- MIMIC-IV-V2.2
-      | -- discretizer_config.json
-      | -- in-hospital-mortality
-      | -- physionet.org
-        | -- files
-          | -- mimic-cxr
-          | -- mimic-cxr-jpg
-          | -- mimic-iv-ed
-          | -- mimic-iv-note
-          | -- mimiciv
-        | -- robots.txt
-
-    |-- APR2018
-      | -- All_Beauty
-        | -- images
-        | -- All_Beauty.json.gz
-        | -- meta_All_Beauty.json.gz
-      | -- AMAZON_FASHION
-        | -- images
-        | -- AMAZON_FASHION.json.gz
-        | -- meta_AMAZON_FASHION.json.gz
-      | -- Office_Products
-        | -- images
-        | -- Office_Products.json.gz
-        | -- meta_Office_Products.json.gz
-
-          ......
+├── lanistr/                    # Core LANISTR package
+│   ├── main.py                # Main entry point
+│   ├── model/                 # Model architectures
+│   ├── dataset/               # Data loading utilities
+│   └── utils/                 # Utility functions
+├── configs/                   # Local configuration files
+├── vertex_ai_configs/         # Vertex AI deployment configs
+├── tests/                     # Test suite
+├── web_interface/             # Web-based interface
+├── Dockerfile.minimal         # Minimal container for cloud
+├── cloudbuild.yaml           # Cloud Build configuration
+├── setup_venv.sh             # Automated setup script
+└── lanistr_cloud_tutorial.ipynb  # Interactive tutorial
 ```
 
-## MIMIC-IV-v2.2
+## 🐳 Container Deployment
 
-
-Experiments on MIMIC-IV dataset start by first pretraining the model followed by
-finetuning on the labeled portion of the data. For both steps we have used
-8xA100 with 40GB memory. For evaluation, we only use a single GPU. The following scripts run pretraining and fine-tuning experiments. Please make sure to run them from `./lanistr/` subdirectory.
-
-
-
-### Pre-training
+### Quick Container Build
 
 ```bash
-bash scripts/mimic_pretrain.sh
+# Build minimal container (~5-10 minutes)
+./build_minimal.sh
+
+# Container URI: gcr.io/mgm-digitalconcierge/lanistr:latest
 ```
 
-### Fine-tuning
+### Manual Container Build
 
 ```bash
-bash scripts/mimic_finetune.sh
+# Build locally
+docker build -f Dockerfile.minimal -t lanistr:latest .
+
+# Push to Google Container Registry
+docker tag lanistr:latest gcr.io/PROJECT_ID/lanistr:latest
+docker push gcr.io/PROJECT_ID/lanistr:latest
 ```
 
-### Evaluation
+## ☁️ Cloud Deployment
+
+### Prerequisites
+
+1. **Google Cloud Project**: Set up with billing enabled
+2. **Required APIs**: Cloud Build, Container Registry, Vertex AI
+3. **Service Account**: With appropriate permissions
+4. **Storage Bucket**: For data and model artifacts
+
+### Automated Deployment
 
 ```bash
-bash scripts/mimic_eval.sh
+# Enable required APIs
+gcloud services enable cloudbuild.googleapis.com
+gcloud services enable containerregistry.googleapis.com
+gcloud services enable aiplatform.googleapis.com
+
+# Build and deploy
+./build_minimal.sh
 ```
 
-## Amazon Product Review 2018
+## 📊 Supported Datasets
 
-Experiments on APR2018 dataset start by first pretraining the model on the
-Office category. We have finetuned the pretrained checkpoint on two distinct
-categories of `All_Beauty` and `AMAZON_FASHION`. For all experiments we have
-used 8xA100 with 40GB memory. For evaluation, we only use a single GPU. The following scripts run pretraining and fine-tuning experiments. Please make sure to run them from `./lanistr/` subdirectory.
+- **MIMIC-IV**: Medical imaging and clinical data
+- **Amazon Reviews**: Multimodal product reviews
+- **Custom Datasets**: Extensible framework for any multimodal data
 
-### Pre-training
+## 🧪 Testing
 
 ```bash
-bash scripts/amazon_pretrain.sh
+# Run all tests
+python -m pytest tests/
+
+# Run specific test categories
+python -m pytest tests/test_data_validator.py
+python -m pytest tests/test_training_pipeline.py
 ```
 
-### Fine-tuning
+## 📚 Documentation
 
-For All_Beatuy and Fashion category use the following scripts, respectively.
+- **[Cloud Build Guide](CLOUD_BUILD_GUIDE.md)**: Complete Cloud Build documentation
+- **[Container Build Guide](CONTAINER_BUILD_GUIDE.md)**: Container build instructions
+- **[Virtual Environment Setup](venv_setup_guide.md)**: Environment setup guide
+- **[Test Report](TEST_REPORT.md)**: Testing framework and results
+
+## 🎯 Tutorials
+
+### Interactive Notebooks
+
+- **`lanistr_cloud_tutorial.ipynb`**: Complete cloud deployment tutorial
+  - Google Cloud setup
+  - Data preparation and upload
+  - Job configuration and submission
+  - Monitoring and results download
+
+## 🔧 Configuration
+
+### Environment Variables
 
 ```bash
-bash scripts/amazon_finetune_beauty.sh
-bash scripts/amazon_finetune_fashion.sh
+export PROJECT_ID="your-project-id"
+export REGION="us-central1"
+export BUCKET_NAME="your-bucket-name"
 ```
 
-### Evaluation
+### Vertex AI Configuration
 
-```bash
-bash scripts/amazon_eval_beauty.sh
-bash scripts/amazon_eval_fashion.sh
-```
+Configuration files are located in `vertex_ai_configs/`:
+- `mimic_pretrain_vertex.yaml`: MIMIC-IV pre-training
+- `mimic_finetune_vertex.yaml`: MIMIC-IV fine-tuning
+- `amazon_pretrain_vertex.yaml`: Amazon reviews pre-training
 
-## FAQ
+## 🚀 Performance
 
-### How to use LANISTR on your own data
+- **Container Size**: ~2.8GB (minimal build)
+- **Build Time**: ~5-10 minutes (Cloud Build)
+- **Memory Usage**: Configurable via Vertex AI settings
+- **GPU Support**: Automatic GPU detection and utilization
 
-**Prepare your data:** Organize your data into a CSV file where each column
-represents a different modality (image filenames, text, time series file paths,
-and tabular features). Ensure categorical and numerical tabular features are in
-separate columns.
+## 🤝 Contributing
 
-**Adapt the dataset class:** Modify the dataset class located at
-./dataset/amazon/load_data.py to correctly read and iterate through your CSV
-data. This might involve adjusting column names, data types, and loading logic.
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests for new functionality
+5. Submit a pull request
 
-### How to skip pretraining and use LANISTR for supervised learning only
+## 📄 License
 
-**Choose a finetuning config file:** Select one of the provided finetuning
-configuration files (e.g., `./lanistr/configs/mimic_finetune.yaml`).
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-**Set finetune_initialize_from to random:** In the chosen config file, locate
-the finetune_initialize_from parameter and set its value to `random. This will
-initialize LANISTR's architecture with random weights, except for the image
-encoder (initialized from a pretrained ViT on ImageNet), the text encoder
-(pretrained BERT), and the multimodal fusion encoder (pretrained FLAVA on
-ImageNet). The time series and TabNet encoders will still initialize randomly.
+## 🆘 Support
 
-### What if I have a different combination of modalities than those in the paper?
+- **Issues**: Create an issue on GitHub
+- **Documentation**: Check the guides in the `docs/` directory
+- **Tutorials**: Follow the Jupyter notebook tutorials
 
-In all configuration files, you can enable or disable individual modalities
-using the following parameters:
+## 🔗 Links
 
-```
-# modalities
-image: true  # Set to false if you don't have image data
-text: true   # Set to false if you don't have text data
-time: true   # Set to false if you don't have time series data
-tab: true    # Set to false if you don't have tabular data
-```
+- **Repository**: https://github.com/stuagano/lanistr-vertex-ai
+- **Container Registry**: gcr.io/mgm-digitalconcierge/lanistr:latest
+- **Documentation**: See guides in the repository
 
-### What is the exact PyTorch installation command you used?
-We used `pip install torch==1.11.0+cu113 torchvision==0.12.0+cu113 torchaudio==0.11.0 --extra-index-url https://download.pytorch.org/whl/cu113`
+---
 
-
-## Citation
-
-If you find our code or paper helpful, please kindly cite LANISTR: ```BibTeX
-
-@article{ebrahimi2023lanistr, title={LANISTR: Multimodal Learning from
-Structured and Unstructured Data}, author={Ebrahimi, Sayna and Arik, Sercan O
-and Dong, Yihe and Pfister, Tomas}, journal={arXiv preprint arXiv:2305.16556},
-year={2023} } ```
-
-## Contributing
-
-See [`CONTRIBUTING.md`](CONTRIBUTING.md) for details.
-
-## License
-
-Apache 2.0; see [`LICENSE`](LICENSE) for details.
-
-## Acknowledgement
-
-This repo borrows some codes from
-[MedFUse](https://github.com/nyuad-cai/MedFuse),
-[pytorch_tabnet](https://github.com/dreamquark-ai/tabnet),
-[Multivariate Time Series Transformer Framework](https://github.com/gzerveas/mvts_transformer/tree/master),
-[SimSiam](https://github.com/facebookresearch/simsiam). Thanks for their great
-works.
-
-**This is not an officially supported Google product.**
+**Happy Training! 🎉**
 
